@@ -1,0 +1,22 @@
+version: "3"
+services:
+    app:
+        container_name: app
+        build: ./nginx_server
+        ports:
+            - '80:80'
+        links:
+            - backend
+    backend:
+        container_name: backend
+        build: ./backend
+        restart: always
+        links:
+            - db
+    db:
+        container_name: db
+        image: mongo
+        volumes:
+            - data-volume:/data/db
+volumes:
+    data-volume:
